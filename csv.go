@@ -115,7 +115,7 @@ func LoadCSV(r io.Reader, opts CSVOptions) (*DataFrame, error) {
 		switch f.Type {
 		case Float64:
 			data := make([]float64, n)
-			b := newBitmap(n)
+			b := NewBitmap(n)
 			for i := 0; i < n; i++ {
 				v := records[start+i][j]
 				if nulls[v] {
@@ -131,7 +131,7 @@ func LoadCSV(r io.Reader, opts CSVOptions) (*DataFrame, error) {
 			columns[j] = &TypedColumn[float64]{Data: data, Nulls: b, DType: Float64}
 		case Int64, DateTime:
 			data := make([]int64, n)
-			b := newBitmap(n)
+			b := NewBitmap(n)
 			for i := 0; i < n; i++ {
 				v := records[start+i][j]
 				if nulls[v] {
@@ -153,7 +153,7 @@ func LoadCSV(r io.Reader, opts CSVOptions) (*DataFrame, error) {
 			columns[j] = &TypedColumn[int64]{Data: data, Nulls: b, DType: f.Type}
 		case Bool:
 			data := make([]bool, n)
-			b := newBitmap(n)
+			b := NewBitmap(n)
 			for i := 0; i < n; i++ {
 				v := records[start+i][j]
 				if nulls[v] {
@@ -169,7 +169,7 @@ func LoadCSV(r io.Reader, opts CSVOptions) (*DataFrame, error) {
 			columns[j] = &TypedColumn[bool]{Data: data, Nulls: b, DType: Bool}
 		case String:
 			data := make([]string, n)
-			b := newBitmap(n)
+			b := NewBitmap(n)
 			for i := 0; i < n; i++ {
 				v := records[start+i][j]
 				if nulls[v] {
@@ -181,7 +181,7 @@ func LoadCSV(r io.Reader, opts CSVOptions) (*DataFrame, error) {
 			columns[j] = &TypedColumn[string]{Data: data, Nulls: b, DType: String}
 		case Category:
 			data := make([]uint32, n)
-			b := newBitmap(n)
+			b := NewBitmap(n)
 			dict := []string{}
 			ids := map[string]uint32{}
 			for i := 0; i < n; i++ {
